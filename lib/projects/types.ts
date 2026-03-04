@@ -147,4 +147,21 @@ export interface Project {
 
   // ── seo ───────────────────────────────────────────
   seo: ProjectSEO
+
+  // ── location section (optional) ───────────────────
+  /** Location/connectivity key visual + connectivity list. If omitted, section uses address + mapEmbedUrl only. */
+  location?: {
+    /** Full-width panorama image path (e.g. /projects/.../location-panorama.jpg) */
+    panoramaImage?: string
+    /** Key visual heading, e.g. "VỊ TRÍ & KẾT NỐI GIAO THÔNG" */
+    heading?: string
+    /** Short intro for key visual (1–2 sentences). */
+    intro?: string
+    /** Brochure-style description paragraph(s) on key visual. */
+    description?: string
+    /** List: place name — distance in km */
+    connectivity?: Array<{ name: string; km: string }>
+    /** Optional travel time list (label — minutes). */
+    travelTime?: Array<{ label: string; value: string }>
+  }
 }

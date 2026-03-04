@@ -2,7 +2,7 @@
 // Client Component – uses Dialog lightbox (interactive)
 import { useState } from "react"
 import Image from "next/image"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import type { Project } from "@/lib/projects/types"
@@ -50,10 +50,9 @@ export function Gallery({ project }: GalleryProps) {
           </div>
         </div>
 
-        {/* ── Masonry-style grid ── */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {/* ── Masonry-style grid: mobile 2 cột đều, desktop 4 cột (ảnh 1 & 5 rộng 2) ── */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
           {gallery.images.map((img, i) => {
-            // Make 1st and 5th images larger (span 2 cols)
             const isLarge = i === 0 || i === 4
             return (
               <button
@@ -61,7 +60,8 @@ export function Gallery({ project }: GalleryProps) {
                 onClick={() => openAt(i)}
                 className={`
                   group relative overflow-hidden rounded-lg bg-secondary
-                  ${isLarge ? "col-span-2 aspect-[16/9]" : "aspect-square"}
+                  col-span-1 ${isLarge ? "md:col-span-2" : ""}
+                  ${isLarge ? "aspect-square md:aspect-[16/9]" : "aspect-square"}
                   border border-border hover:border-primary/50 transition-all
                 `}
                 aria-label={`Xem ảnh: ${img.alt}`}
@@ -88,10 +88,16 @@ export function Gallery({ project }: GalleryProps) {
           })}
         </div>
 
-        {/* ── Lightbox Dialog ── */}
+        {/* ── Lightbox: full màn, ghi đè hết style mặc định Dialog (tránh sm:max-w-lg) ── */}
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogContent className="max-w-5xl w-full p-0 bg-black border-none rounded-none overflow-hidden">
-            <div className="relative">
+          <DialogContent
+            showCloseButton={false}
+            className="!fixed !inset-0 !top-0 !left-0 !right-0 !bottom-0 !z-50 !flex !flex-col !w-full !h-full !max-w-[100vw] !max-h-[100vh] !translate-x-0 !translate-y-0 p-0 bg-black border-none rounded-none overflow-hidden gap-0 shadow-none outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
+          >
+            <DialogTitle className="sr-only">
+              {current ? `${current.alt} (${index + 1}/${gallery.images.length})` : "Thư viện ảnh"}
+            </DialogTitle>
+            <div className="relative flex-1 flex flex-col min-h-0 overflow-hidden">
               {/* Close */}
               <button
                 onClick={() => setOpen(false)}
@@ -101,24 +107,24 @@ export function Gallery({ project }: GalleryProps) {
                 <X className="size-6" />
               </button>
 
-              {/* Image */}
-              <div className="relative aspect-[16/10] w-full bg-black">
+              {/* Ảnh chiếm toàn bộ phần còn lại */}
+              <div className="relative flex-1 min-h-0 w-full bg-black">
                 {current && (
                   <Image
                     src={current.src}
                     alt={current.alt}
                     fill
                     className="object-contain"
-                    sizes="90vw"
+                    sizes="100vw"
                     priority
                   />
                 )}
               </div>
 
-              {/* Caption + counter */}
-              <div className="flex items-center justify-between px-6 py-3 bg-black/80">
-                <p className="text-white/70 text-sm">{current?.caption}</p>
-                <p className="text-primary text-sm font-medium">
+              {/* Thanh caption mỏng */}
+              <div className="flex items-center justify-between px-4 py-2 bg-black/90 shrink-0">
+                <p className="text-white/70 text-sm truncate">{current?.caption}</p>
+                <p className="text-primary text-sm font-medium shrink-0 ml-2">
                   {index + 1} / {gallery.images.length}
                 </p>
               </div>
@@ -128,19 +134,19 @@ export function Gallery({ project }: GalleryProps) {
                 variant="ghost"
                 size="icon"
                 onClick={prev}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-white hover:bg-white/10 size-10"
+                className="absolute left-2 md:left-3 top-1/2 -translate-y-1/2 text-white hover:bg-white/10 size-9 md:size-10 z-10"
                 aria-label="Ảnh trước"
               >
-                <ChevronLeft className="size-6" />
+                <ChevronLeft className="size-5 md:size-6" />
               </Button>
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={next}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-white hover:bg-white/10 size-10"
+                className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 text-white hover:bg-white/10 size-9 md:size-10 z-10"
                 aria-label="Ảnh tiếp"
               >
-                <ChevronRight className="size-6" />
+                <ChevronRight className="size-5 md:size-6" />
               </Button>
             </div>
           </DialogContent>

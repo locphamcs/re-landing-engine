@@ -1,29 +1,29 @@
 // Server Component
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { Phone } from "lucide-react"
-import type { Project } from "@/lib/projects/types"
+import { Badge } from "@/components/ui/badge";
+import type { Project } from "@/lib/projects/types";
 
 interface PricingProps {
-  project: Project
+  project: Project;
 }
 
 // badge variant mapping for urgency
 function badgeStyle(badge?: string) {
-  if (!badge) return "secondary"
-  if (badge.includes("hết") || badge.includes("Giới hạn") || badge.includes("Độc quyền"))
-    return "destructive"
-  return "secondary"
+  if (!badge) return "secondary";
+  if (
+    badge.includes("hết") ||
+    badge.includes("Giới hạn") ||
+    badge.includes("Độc quyền")
+  )
+    return "destructive";
+  return "secondary";
 }
 
 export function Pricing({ project }: PricingProps) {
-  const { pricing } = project
+  const { pricing } = project;
 
   return (
     <section id="pricing" className="py-24 md:py-32 bg-card">
       <div className="container mx-auto px-6 max-w-5xl">
-
         {/* ── Section header ── */}
         <div className="text-center mb-14">
           <p className="text-[10px] tracking-[0.4em] uppercase text-primary font-semibold mb-3">
@@ -42,14 +42,64 @@ export function Pricing({ project }: PricingProps) {
           </p>
         </div>
 
-        {/* ── Pricing table ── */}
-        <div className="border border-border rounded-lg overflow-hidden mb-8">
+        {/* ── Mobile: card layout ── */}
+        <div className="block md:hidden space-y-3 mb-8">
+          {pricing.units.map((unit, i) => (
+            <div
+              key={unit.type}
+              className={`border border-border rounded-lg overflow-hidden ${
+                i % 2 === 0 ? "bg-card" : "bg-primary/[0.03]"
+              }`}
+            >
+              <div className="p-4 space-y-3">
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="font-heading font-medium text-foreground text-base shrink-0">
+                    {unit.type}
+                  </h3>
+                  {unit.badge && (
+                    <Badge
+                      variant={
+                        badgeStyle(unit.badge) as "secondary" | "destructive"
+                      }
+                      className="text-[10px] rounded-none tracking-wide shrink-0"
+                    >
+                      {unit.badge}
+                    </Badge>
+                  )}
+                </div>
+                <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
+                  <span className="text-muted-foreground">Diện tích</span>
+                  <span>{unit.area}</span>
+                  <span className="text-muted-foreground">Giá</span>
+                  <span className="text-primary font-semibold">{unit.price}</span>
+                  {unit.pricePerSqm != null && (
+                    <>
+                      <span className="text-muted-foreground">Giá/m²</span>
+                      <span className="text-muted-foreground">{unit.pricePerSqm}</span>
+                    </>
+                  )}
+                  {unit.available !== undefined && unit.total !== undefined && (
+                    <>
+                      <span className="text-muted-foreground">Trạng thái</span>
+                      <span className="text-muted-foreground text-[11px]">
+                        {unit.available}/{unit.total} căn
+                      </span>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ── Desktop: table ── */}
+        <div className="hidden md:block border border-border rounded-lg overflow-hidden mb-8">
           {/* Table header */}
           <div className="grid grid-cols-5 gap-px bg-primary/20 text-[11px] tracking-[0.25em] uppercase text-primary px-0">
             <div className="bg-card px-5 py-3">Loại căn</div>
             <div className="bg-card px-5 py-3">Diện tích</div>
             <div className="bg-card px-5 py-3">Giá</div>
-            <div className="bg-card px-5 py-3 hidden sm:block">Giá/m²</div>
+            <div className="bg-card px-5 py-3">Giá/m²</div>
             <div className="bg-card px-5 py-3">Trạng thái</div>
           </div>
 
@@ -70,13 +120,15 @@ export function Pricing({ project }: PricingProps) {
               <div className="bg-card px-5 py-4 text-primary font-semibold">
                 {unit.price}
               </div>
-              <div className="bg-card px-5 py-4 text-muted-foreground hidden sm:block">
+              <div className="bg-card px-5 py-4 text-muted-foreground">
                 {unit.pricePerSqm ?? "—"}
               </div>
               <div className="bg-card px-5 py-4">
                 {unit.badge && (
                   <Badge
-                    variant={badgeStyle(unit.badge) as "secondary" | "destructive"}
+                    variant={
+                      badgeStyle(unit.badge) as "secondary" | "destructive"
+                    }
                     className="text-[10px] rounded-none tracking-wide"
                   >
                     {unit.badge}
@@ -93,44 +145,10 @@ export function Pricing({ project }: PricingProps) {
         </div>
 
         {/* ── Note ── */}
-        <p className="text-muted-foreground text-xs leading-relaxed mb-8 italic">
+        <p className="text-muted-foreground text-xs leading-relaxed mb-8 italic min-w-0">
           {pricing.note}
         </p>
-
-        <Separator className="mb-8" />
-
-        {/* ── CTA ── */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-lg border border-primary/30 bg-primary/5 px-6 py-5">
-          <div>
-            <p className="text-foreground font-heading text-xl">
-              Nhận báo giá chi tiết
-            </p>
-            <p className="text-muted-foreground text-sm">
-              Đặt cọc tối thiểu: <span className="text-primary font-semibold">{project.bookingMin}</span>
-            </p>
-          </div>
-          <div className="flex gap-3">
-            <Button
-              asChild
-              className="bg-primary text-black hover:bg-primary/90 rounded-none tracking-widest uppercase text-[11px] font-semibold"
-            >
-              <a href="#contact">Đăng ký ngay</a>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              className="border-primary/40 text-primary hover:bg-primary/10 rounded-none tracking-widest uppercase text-[11px]"
-            >
-              <a href={`tel:${project.hotline}`}>
-                <Phone className="mr-2 size-4" />
-                {project.hotline}
-              </a>
-            </Button>
-          </div>
-        </div>
-
       </div>
     </section>
-  )
+  );
 }
-

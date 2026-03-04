@@ -18,9 +18,11 @@ import { buildProjectJsonLd } from "@/lib/projects/metadata";
 import { Hero } from "@/app/(site)/du-an/[slug]/sections/Hero";
 import { Overview } from "@/app/(site)/du-an/[slug]/sections/Overview";
 import { Location } from "@/app/(site)/du-an/[slug]/sections/Location";
+import { HandoverMaterials } from "@/app/(site)/du-an/[slug]/sections/HandoverMaterials";
 import { Amenities } from "@/app/(site)/du-an/[slug]/sections/Amenities";
 import { MasterPlan } from "@/app/(site)/du-an/[slug]/sections/MasterPlan";
 import { Gallery } from "@/app/(site)/du-an/[slug]/sections/Gallery";
+import { SalesPolicy } from "@/app/(site)/du-an/[slug]/sections/SalesPolicy";
 import { Pricing } from "@/app/(site)/du-an/[slug]/sections/Pricing";
 import { Contact } from "@/app/(site)/du-an/[slug]/sections/Contact";
 
@@ -44,9 +46,11 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
         <Hero project={project} />
         <Overview project={project} />
         <Location project={project} />
+        <HandoverMaterials project={project} />
         {/* <Amenities project={project} /> */}
         {/* <MasterPlan project={project} /> */}
         <Gallery project={project} />
+        <SalesPolicy project={project} />
         <Pricing project={project} />
         <Contact project={project} />
 

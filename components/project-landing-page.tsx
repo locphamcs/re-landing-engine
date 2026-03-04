@@ -20,8 +20,6 @@ import { Hero } from "@/app/(site)/du-an/[slug]/sections/Hero";
 import { Overview } from "@/app/(site)/du-an/[slug]/sections/Overview";
 import { Location } from "@/app/(site)/du-an/[slug]/sections/Location";
 import { HandoverMaterials } from "@/app/(site)/du-an/[slug]/sections/HandoverMaterials";
-import { Amenities } from "@/app/(site)/du-an/[slug]/sections/Amenities";
-import { MasterPlan } from "@/app/(site)/du-an/[slug]/sections/MasterPlan";
 import { Gallery } from "@/app/(site)/du-an/[slug]/sections/Gallery";
 import { SalesPolicy } from "@/app/(site)/du-an/[slug]/sections/SalesPolicy";
 import { Pricing } from "@/app/(site)/du-an/[slug]/sections/Pricing";

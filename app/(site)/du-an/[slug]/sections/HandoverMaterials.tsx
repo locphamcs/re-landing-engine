@@ -4,8 +4,7 @@ import type { Project } from "@/lib/projects/types"
 
 const GOLD = "#C7A15A"
 
-const DEFAULT_INTERIOR_IMAGE =
-  "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80"
+const INTERIOR_IMAGE = "/projects/the-reflection-westlake/noi-that.jpg"
 
 interface HandoverMaterialsProps {
   project: Project
@@ -56,7 +55,7 @@ export function HandoverMaterials({ project }: HandoverMaterialsProps) {
           <div className="order-2 lg:order-1">
             <div className="relative min-h-[320px] lg:min-h-[520px] w-full rounded-2xl overflow-hidden shadow-lg">
               <Image
-                src={DEFAULT_INTERIOR_IMAGE}
+                src={INTERIOR_IMAGE}
                 alt="Nội thất cao cấp bàn giao"
                 fill
                 className="object-cover scale-105"

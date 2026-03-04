@@ -10,7 +10,8 @@
 //  are "use client" — everything else is server-rendered.
 // ─────────────────────────────────────────────────────────────
 
-import { Phone, MessageCircle } from "lucide-react";
+import Image from "next/image";
+import { Phone, FileText } from "lucide-react";
 import type { Project } from "@/lib/projects/types";
 import { buildProjectJsonLd } from "@/lib/projects/metadata";
 
@@ -102,7 +103,13 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
             py-4 hover:bg-primary/10 transition-all
           "
         >
-          <MessageCircle className="size-4" />
+          <Image
+            src="/projects/the-reflection-westlake/Icon_Zalo.svg.png"
+            alt="Zalo"
+            width={20}
+            height={20}
+            className="shrink-0"
+          />
           Zalo
         </a>
       </div>
@@ -127,13 +134,31 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
           rel="noopener noreferrer"
           title="Chat Zalo"
           className="
-            flex items-center gap-2 bg-card border border-primary/40 text-primary
+            flex items-center gap-2 bg-white border border-[#C7A15A] text-foreground
             text-xs font-semibold tracking-widest uppercase px-5 py-3 rounded-full
-            shadow-lg hover:bg-primary/10 transition-all
+            shadow-md hover:bg-[#C7A15A] hover:text-black transition-all
           "
         >
-          <MessageCircle className="size-4" />
+          <Image
+            src="/projects/the-reflection-westlake/Icon_Zalo.svg.png"
+            alt="Zalo"
+            width={18}
+            height={18}
+            className="shrink-0"
+          />
           Zalo
+        </a>
+        <a
+          href="#contact"
+          title="Nhận bảng giá"
+          className="
+            flex items-center gap-2 bg-white border border-[#C7A15A] text-foreground
+            text-xs font-semibold tracking-widest uppercase px-5 py-3 rounded-full
+            shadow-md hover:bg-[#C7A15A] hover:text-black transition-all
+          "
+        >
+          <FileText className="size-4" />
+          NHẬN BẢNG GIÁ
         </a>
       </div>
     </>

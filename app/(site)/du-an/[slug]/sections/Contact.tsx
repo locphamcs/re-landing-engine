@@ -1,42 +1,49 @@
-"use client"
+"use client";
 // Client Component – interactive form with state
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Phone, MessageCircle, MapPin, CheckCircle2, Loader2, ShieldCheck } from "lucide-react"
-import type { Project } from "@/lib/projects/types"
+import { useState } from "react";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Phone,
+  MapPin,
+  CheckCircle2,
+  Loader2,
+  ShieldCheck,
+  MessageCircle,
+} from "lucide-react";
+import type { Project } from "@/lib/projects/types";
 
 interface ContactProps {
-  project: Project
+  project: Project;
 }
 
-type FormState = "idle" | "submitting" | "success"
+type FormState = "idle" | "submitting" | "success";
 
 export function Contact({ project }: ContactProps) {
-  const { contact } = project
-  const { formFields } = contact
+  const { contact } = project;
+  const { formFields } = contact;
 
-  const [name, setName] = useState("")
-  const [phone, setPhone] = useState("")
-  const [need, setNeed] = useState(formFields.needOptions[0])
-  const [formState, setFormState] = useState<FormState>("idle")
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [need, setNeed] = useState(formFields.needOptions[0]);
+  const [formState, setFormState] = useState<FormState>("idle");
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    if (!name.trim() || !phone.trim()) return
-    setFormState("submitting")
+    e.preventDefault();
+    if (!name.trim() || !phone.trim()) return;
+    setFormState("submitting");
     // TODO: replace with real API call / form webhook
-    await new Promise((r) => setTimeout(r, 1200))
-    setFormState("success")
+    await new Promise((r) => setTimeout(r, 1200));
+    setFormState("success");
   }
 
   const inputBase =
-    "h-11 w-full rounded-lg border border-neutral-200 bg-white px-3 text-sm text-foreground font-sans transition-colors focus-visible:border-[#C7A15A] focus:outline-none focus-visible:ring-0"
+    "h-11 w-full rounded-lg border border-neutral-200 bg-white px-3 text-sm text-foreground font-sans transition-colors focus-visible:border-[#C7A15A] focus:outline-none focus-visible:ring-0";
 
   return (
     <section id="contact" className="py-28 bg-background">
       <div className="container mx-auto px-6 max-w-5xl">
-
         {/* ── Section header ── */}
         <div className="text-center mb-16">
           <p className="font-sans text-[10px] tracking-[0.4em] uppercase text-[#C7A15A] font-medium mb-3">
@@ -49,12 +56,12 @@ export function Contact({ project }: ContactProps) {
             <span className="block h-px w-16 bg-[#C7A15A]/60" aria-hidden />
           </div>
           <p className="font-sans text-muted-foreground text-base font-normal max-w-xl mx-auto leading-relaxed">
-            Để lại thông tin để nhận bảng giá mới nhất và tư vấn chi tiết từ chuyên viên dự án.
+            Để lại thông tin để nhận bảng giá mới nhất và tư vấn chi tiết từ
+            chuyên viên dự án.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-16 items-start">
-
           {/* ── Form ── */}
           <div className="border border-neutral-200/80 rounded-lg p-8 bg-card/50">
             {formState === "success" ? (
@@ -73,7 +80,10 @@ export function Contact({ project }: ContactProps) {
               </div>
             ) : (
               <>
-                <form onSubmit={handleSubmit} className="flex flex-col space-y-5">
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex flex-col space-y-5"
+                >
                   <div className="flex flex-col gap-1.5">
                     <label className="font-sans text-xs tracking-[0.2em] uppercase text-muted-foreground">
                       {formFields.fullNameLabel} *
@@ -144,7 +154,9 @@ export function Contact({ project }: ContactProps) {
               <p className="font-sans text-[10px] tracking-[0.35em] uppercase text-muted-foreground mb-2">
                 Chủ đầu tư
               </p>
-              <p className="font-heading text-2xl text-foreground">{contact.developerName}</p>
+              <p className="font-heading text-2xl text-foreground">
+                {contact.developerName}
+              </p>
             </div>
 
             {/* Thông tin liên hệ */}
@@ -205,10 +217,8 @@ export function Contact({ project }: ContactProps) {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>
-  )
+  );
 }
-

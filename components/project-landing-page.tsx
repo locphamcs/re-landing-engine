@@ -10,26 +10,26 @@
 //  are "use client" — everything else is server-rendered.
 // ─────────────────────────────────────────────────────────────
 
-import { Phone, MessageCircle } from "lucide-react"
-import type { Project } from "@/lib/projects/types"
-import { buildProjectJsonLd } from "@/lib/projects/metadata"
+import { Phone, MessageCircle } from "lucide-react";
+import type { Project } from "@/lib/projects/types";
+import { buildProjectJsonLd } from "@/lib/projects/metadata";
 
 // ── Section imports (each section is Server or Client as needed) ──
-import { Hero } from "@/app/(site)/du-an/[slug]/sections/Hero"
-import { Overview } from "@/app/(site)/du-an/[slug]/sections/Overview"
-import { Location } from "@/app/(site)/du-an/[slug]/sections/Location"
-import { Amenities } from "@/app/(site)/du-an/[slug]/sections/Amenities"
-import { MasterPlan } from "@/app/(site)/du-an/[slug]/sections/MasterPlan"
-import { Gallery } from "@/app/(site)/du-an/[slug]/sections/Gallery"
-import { Pricing } from "@/app/(site)/du-an/[slug]/sections/Pricing"
-import { Contact } from "@/app/(site)/du-an/[slug]/sections/Contact"
+import { Hero } from "@/app/(site)/du-an/[slug]/sections/Hero";
+import { Overview } from "@/app/(site)/du-an/[slug]/sections/Overview";
+import { Location } from "@/app/(site)/du-an/[slug]/sections/Location";
+import { Amenities } from "@/app/(site)/du-an/[slug]/sections/Amenities";
+import { MasterPlan } from "@/app/(site)/du-an/[slug]/sections/MasterPlan";
+import { Gallery } from "@/app/(site)/du-an/[slug]/sections/Gallery";
+import { Pricing } from "@/app/(site)/du-an/[slug]/sections/Pricing";
+import { Contact } from "@/app/(site)/du-an/[slug]/sections/Contact";
 
 interface ProjectLandingPageProps {
-  project: Project
+  project: Project;
 }
 
 export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
-  const jsonLd = buildProjectJsonLd(project)
+  const jsonLd = buildProjectJsonLd(project);
 
   return (
     <>
@@ -44,8 +44,8 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
         <Hero project={project} />
         <Overview project={project} />
         <Location project={project} />
-        <Amenities project={project} />
-        <MasterPlan project={project} />
+        {/* <Amenities project={project} /> */}
+        {/* <MasterPlan project={project} /> */}
         <Gallery project={project} />
         <Pricing project={project} />
         <Contact project={project} />
@@ -68,8 +68,8 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
             </a>
           </p>
           <p className="text-muted-foreground/30 text-[10px] mt-5">
-            © {new Date().getFullYear()} {project.brand}. Thông tin dự án mang tính
-            tham khảo, không có giá trị pháp lý.
+            © {new Date().getFullYear()} {project.brand}. Thông tin dự án mang
+            tính tham khảo, không có giá trị pháp lý.
           </p>
         </footer>
       </main>
@@ -133,6 +133,5 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
         </a>
       </div>
     </>
-  )
+  );
 }
-

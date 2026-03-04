@@ -227,5 +227,34 @@ export const theReflectionWestlake: Project = {
     ],
     ogImage: "/projects/the-reflection-westlake/og-image.jpg",
   },
+
+  // ── location / connectivity ────────────────────────
+  location: {
+    panoramaImage: "/projects/the-reflection-westlake/location-panorama.jpg",
+    heading: "VỊ TRÍ & KẾT NỐI GIAO THÔNG",
+    intro:
+      "Dự án The Reflection West Lake tọa lạc tại Lô D1, phường Phú Thượng, quận Tây Hồ, Hà Nội. Sở hữu vị trí đắc địa tại vị trí cửa ngõ của Thủ đô Hà Nội, từ dự án có thể dễ dàng di chuyển vào trung tâm thành phố cũng như các quận huyện vùng ven rất nhanh chóng và thuận tiện.",
+    description:
+      "Reflection West Lake là nơi sự hiện đại gặp gỡ di sản, nơi chủ nghĩa quốc tế hòa quyện với văn hóa của vùng đất. Dự án mang đến không gian sang trọng kiểu Boutique và phong cách sống tràn đầy năng lượng hòa quyện với các yếu tố tự nhiên của sông, hồ và bầu trời Hà Nội.",
+    connectivity: [
+      { name: "Khu đô thị Ciputra", km: "1km" },
+      { name: "Cầu Nhật Tân", km: "500m" },
+      { name: "Sân bay Nội Bài", km: "18km" },
+      { name: "Công viên nước Hồ Tây", km: "1km" },
+      { name: "Thung lũng hoa Hồ Tây", km: "1.5km" },
+      { name: "Chợ Bưởi", km: "4km" },
+      { name: "Đại học Quốc Gia", km: "1km" },
+      { name: "Bến xe Mỹ Đình", km: "9km" },
+      { name: "Khu liên hợp thể thao quốc gia Mỹ Đình", km: "10km" },
+      { name: "Bệnh viện E", km: "7km" },
+      { name: "Công viên Hòa Bình", km: "4km" },
+      { name: "Trường quốc tế LHQ Hà Nội (UNIS)", km: "1km" },
+    ],
+    travelTime: [
+      { label: "Sân bay Nội Bài", value: "~35 phút" },
+      { label: "Trung tâm Hoàn Kiếm", value: "~20 phút" },
+      { label: "Bến xe Mỹ Đình", value: "~25 phút" },
+    ],
+  },
 }
 

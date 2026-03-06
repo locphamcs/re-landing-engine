@@ -1,13 +1,14 @@
 // Server Component – no interactivity needed
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Phone, ChevronDown } from "lucide-react"
-import type { Project } from "@/lib/projects/types"
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Phone, ChevronDown } from "lucide-react";
+import type { Project } from "@/lib/projects/types";
+import { trackEvent } from "@/lib/analytics";
 
-const GOLD = "#C7A15A"
+const GOLD = "#C7A15A";
 
 interface HeroProps {
-  project: Project
+  project: Project;
 }
 
 export function Hero({ project }: HeroProps) {
@@ -89,7 +90,10 @@ export function Hero({ project }: HeroProps) {
             variant="outline"
             className="border-white/30 bg-black/20 text-white backdrop-blur-sm hover:bg-black/35 font-medium tracking-[0.15em] uppercase text-xs px-8 py-4 h-auto rounded-sm"
           >
-            <a href={`tel:${project.hotline}`}>
+            <a
+              href={`tel:${project.hotline}`}
+              onClick={() => trackEvent("click_hotline")}
+            >
               <Phone className="mr-2 size-4" />
               Gọi ngay: {project.hotline}
             </a>
@@ -107,5 +111,5 @@ export function Hero({ project }: HeroProps) {
         <ChevronDown className="size-5 animate-bounce" />
       </a>
     </section>
-  )
+  );
 }

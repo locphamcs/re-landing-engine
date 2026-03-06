@@ -14,6 +14,7 @@ import Image from "next/image";
 import { Phone, FileText } from "lucide-react";
 import type { Project } from "@/lib/projects/types";
 import { buildProjectJsonLd } from "@/lib/projects/metadata";
+import { trackEvent } from "@/lib/analytics";
 
 // ── Section imports (each section is Server or Client as needed) ──
 import { Hero } from "@/app/(site)/du-an/[slug]/sections/Hero";
@@ -65,6 +66,7 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
             Hotline:{" "}
             <a
               href={`tel:${project.hotline}`}
+              onClick={() => trackEvent("click_hotline")}
               className="text-primary hover:underline"
             >
               {project.hotline}
@@ -81,6 +83,7 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
       <div className="fixed bottom-0 inset-x-0 z-50 md:hidden flex border-t border-border">
         <a
           href={`tel:${project.hotline}`}
+          onClick={() => trackEvent("click_hotline")}
           className="
             flex-1 flex items-center justify-center gap-2
             bg-primary text-black font-semibold text-sm tracking-widest uppercase
@@ -93,6 +96,7 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
         <a
           href={`https://zalo.me/${project.zalo}`}
           target="_blank"
+          onClick={() => trackEvent("click_zalo")}
           rel="noopener noreferrer"
           className="
             flex-1 flex items-center justify-center gap-2
@@ -117,6 +121,7 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
         <a
           href={`tel:${project.hotline}`}
           title={`Gọi ngay: ${project.hotline}`}
+          onClick={() => trackEvent("click_hotline")}
           className="
             flex items-center gap-2 bg-primary text-black text-xs font-semibold
             tracking-widest uppercase px-5 py-3 rounded-full
@@ -129,6 +134,7 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
         <a
           href={`https://zalo.me/${project.zalo}`}
           target="_blank"
+          onClick={() => trackEvent("click_zalo")}
           rel="noopener noreferrer"
           title="Chat Zalo"
           className="

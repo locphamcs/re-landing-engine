@@ -41,6 +41,8 @@ export interface ProjectGalleryImage {
   src: string
   alt: string
   caption?: string
+  /** Category key for filtering: "noi-that" | "layout" | "mat-bang". Omit for "all" only. */
+  category?: "noi-that" | "layout" | "mat-bang"
 }
 
 export interface ProjectZone {

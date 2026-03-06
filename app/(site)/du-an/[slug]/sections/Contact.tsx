@@ -1,7 +1,6 @@
 "use client";
 // Client Component – interactive form with state
 import { useState } from "react";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -13,6 +12,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import type { Project } from "@/lib/projects/types";
+import { trackEvent } from "@/lib/analytics";
 
 interface ContactProps {
   project: Project;
@@ -33,6 +33,8 @@ export function Contact({ project }: ContactProps) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    trackEvent("submit_contact");
 
     const cleanName = name.trim();
     const cleanPhone = phone.trim().replace(/\s+/g, "");
@@ -151,7 +153,10 @@ export function Contact({ project }: ContactProps) {
                       aria-invalid={!!nameError}
                     />
                     {nameError && (
-                      <p className="font-sans text-xs text-red-500 mt-0.5" role="alert">
+                      <p
+                        className="font-sans text-xs text-red-500 mt-0.5"
+                        role="alert"
+                      >
                         {nameError}
                       </p>
                     )}
@@ -174,7 +179,10 @@ export function Contact({ project }: ContactProps) {
                       aria-invalid={!!phoneError}
                     />
                     {phoneError && (
-                      <p className="font-sans text-xs text-red-500 mt-0.5" role="alert">
+                      <p
+                        className="font-sans text-xs text-red-500 mt-0.5"
+                        role="alert"
+                      >
                         {phoneError}
                       </p>
                     )}
@@ -236,6 +244,7 @@ export function Contact({ project }: ContactProps) {
               <div className="flex flex-col gap-6">
                 <a
                   href={`tel:${project.hotline}`}
+                  onClick={() => trackEvent("click_hotline")}
                   className="flex items-center gap-4 group"
                 >
                   <div className="w-11 h-11 rounded-lg border border-neutral-200 flex items-center justify-center group-hover:border-[#C7A15A] group-hover:bg-[#C7A15A]/5 transition-colors">
@@ -254,6 +263,7 @@ export function Contact({ project }: ContactProps) {
                 <a
                   href={`https://zalo.me/${project.zalo}`}
                   target="_blank"
+                  onClick={() => trackEvent("click_zalo")}
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 group"
                 >

@@ -31,11 +31,50 @@ export function Contact({ project }: ContactProps) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !phone.trim()) return;
+
+    const cleanName = name.trim();
+    const cleanPhone = phone.trim().replace(/\s+/g, "");
+
+    if (!cleanName || !cleanPhone) {
+      alert("Vui lòng nhập đầy đủ họ tên và số điện thoại.");
+      return;
+    }
+
+    if (!/^(0|\+84)\d{9,10}$/.test(cleanPhone)) {
+      alert("Số điện thoại không hợp lệ.");
+      return;
+    }
+
     setFormState("submitting");
-    // TODO: replace with real API call / form webhook
-    await new Promise((r) => setTimeout(r, 1200));
-    setFormState("success");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: cleanName,
+          phone: cleanPhone,
+          need,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Gửi thất bại");
+      }
+
+      setFormState("success");
+      setName("");
+      setPhone("");
+      setNeed(formFields.needOptions[0]);
+    } catch (error) {
+      console.error("Submit error:", error);
+      alert("Gửi thông tin thất bại. Vui lòng thử lại.");
+      setFormState("idle");
+    }
   }
 
   const inputBase =
@@ -176,7 +215,7 @@ export function Contact({ project }: ContactProps) {
                     <p className="font-sans text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
                       Hotline
                     </p>
-                    <p className="font-heading text-lg text-foreground group-hover:text-[#C7A15A] transition-colors">
+                    <p className="font-sans text-sm text-foreground group-hover:text-[#C7A15A] transition-colors">
                       {project.hotline}
                     </p>
                   </div>
@@ -195,7 +234,7 @@ export function Contact({ project }: ContactProps) {
                     <p className="font-sans text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
                       Zalo
                     </p>
-                    <p className="font-heading text-lg text-foreground group-hover:text-[#C7A15A] transition-colors">
+                    <p className="font-sans text-sm text-foreground group-hover:text-[#C7A15A] transition-colors">
                       {project.zalo}
                     </p>
                   </div>

@@ -13,7 +13,7 @@ export const theReflectionWestlake: Project = {
   name: "The Reflection Westlake",
   tagline: "Kiệt tác phản chiếu – Sống xứng tầm thượng lưu bên Hồ Tây",
   city: "Hà Nội",
-  address: "3RJ8+924, Phú Thượng, Tây Hồ, Hà Nội, Việt Nam",
+  address: "Phú Thượng, Tây Hồ, Hà Nội, Việt Nam",
   legalStatus: "Đang cập nhật",
   bookingMin: "100.000.000đ",
   hotline: "0857161157",
@@ -429,7 +429,7 @@ export const theReflectionWestlake: Project = {
     description:
       "Để lại thông tin, chuyên viên tư vấn của chúng tôi sẽ liên hệ với bạn trong vòng 30 phút.",
     developerName: "Địa Ốc Kiến Hưng",
-    developerAddress: "3RJ8+924, Phú Thượng, Tây Hồ, Hà Nội",
+    developerAddress: "Phú Thượng, Tây Hồ, Hà Nội",
     formFields: {
       fullNameLabel: "Họ và tên",
       phoneLabel: "Số điện thoại",

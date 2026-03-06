@@ -28,6 +28,8 @@ export function Contact({ project }: ContactProps) {
   const [phone, setPhone] = useState("");
   const [need, setNeed] = useState(formFields.needOptions[0]);
   const [formState, setFormState] = useState<FormState>("idle");
+  const [nameError, setNameError] = useState<string | null>(null);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -35,15 +37,23 @@ export function Contact({ project }: ContactProps) {
     const cleanName = name.trim();
     const cleanPhone = phone.trim().replace(/\s+/g, "");
 
-    if (!cleanName || !cleanPhone) {
-      alert("Vui lòng nhập đầy đủ họ tên và số điện thoại.");
-      return;
-    }
+    // Clear previous errors
+    setNameError(null);
+    setPhoneError(null);
 
-    if (!/^(0|\+84)\d{9,10}$/.test(cleanPhone)) {
-      alert("Số điện thoại không hợp lệ.");
-      return;
+    let hasError = false;
+    if (!cleanName) {
+      setNameError("Vui lòng nhập họ tên.");
+      hasError = true;
     }
+    if (!cleanPhone) {
+      setPhoneError("Vui lòng nhập số điện thoại.");
+      hasError = true;
+    } else if (!/^(0|\+84)\d{9,10}$/.test(cleanPhone)) {
+      setPhoneError("Số điện thoại không hợp lệ.");
+      hasError = true;
+    }
+    if (hasError) return;
 
     setFormState("submitting");
 
@@ -69,6 +79,8 @@ export function Contact({ project }: ContactProps) {
       setFormState("success");
       setName("");
       setPhone("");
+      setNameError(null);
+      setPhoneError(null);
       setNeed(formFields.needOptions[0]);
     } catch (error) {
       console.error("Submit error:", error);
@@ -129,11 +141,20 @@ export function Contact({ project }: ContactProps) {
                     </label>
                     <Input
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        if (nameError) setNameError(null);
+                      }}
                       placeholder="Nguyễn Văn A"
                       required
-                      className={inputBase}
+                      className={`${inputBase} ${nameError ? "border-red-500 focus-visible:border-red-500" : ""}`}
+                      aria-invalid={!!nameError}
                     />
+                    {nameError && (
+                      <p className="font-sans text-xs text-red-500 mt-0.5" role="alert">
+                        {nameError}
+                      </p>
+                    )}
                   </div>
 
                   <div className="flex flex-col gap-1.5">
@@ -143,11 +164,20 @@ export function Contact({ project }: ContactProps) {
                     <Input
                       type="tel"
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
+                      onChange={(e) => {
+                        setPhone(e.target.value);
+                        if (phoneError) setPhoneError(null);
+                      }}
                       placeholder="09xx xxx xxx"
                       required
-                      className={inputBase}
+                      className={`${inputBase} ${phoneError ? "border-red-500 focus-visible:border-red-500" : ""}`}
+                      aria-invalid={!!phoneError}
                     />
+                    {phoneError && (
+                      <p className="font-sans text-xs text-red-500 mt-0.5" role="alert">
+                        {phoneError}
+                      </p>
+                    )}
                   </div>
 
                   <div className="flex flex-col gap-1.5">

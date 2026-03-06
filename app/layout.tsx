@@ -29,8 +29,24 @@ export const metadata: Metadata = {
   description:
     "Khám phá các dự án bất động sản cao cấp của Địa Ốc Kiến Hưng tại Hà Nội và TP.HCM.",
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://diaockienhung.vn"
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://diaockienhung.vn",
   ),
+  openGraph: {
+    type: "website",
+    locale: "vi_VN",
+    siteName: "Địa Ốc Kiến Hưng",
+    title: "Địa Ốc Kiến Hưng – Dự án BĐS cao cấp",
+    description:
+      "Khám phá các dự án bất động sản cao cấp của Địa Ốc Kiến Hưng tại Hà Nội và TP.HCM.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Địa Ốc Kiến Hưng",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({

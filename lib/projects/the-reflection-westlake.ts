@@ -18,9 +18,8 @@ export const theReflectionWestlake: Project = {
   bookingMin: "100.000.000đ",
   hotline: "0857161157",
   zalo: "0857161157",
-  // ↓ Thay bằng iframe src thực khi có
   mapEmbedUrl:
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.86756!2d105.8166!3d21.0715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab9bd9861ca1%3A0xe7887f7b72ca17a9!2zVMOieSBI4buTLCBIw6AgTuG7mWk!5e0!3m2!1svi!2svn!4v1700000000000",
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3722.794048299169!2d105.8150905!3d21.080886400000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab77bcdb986d%3A0x387c7d2bec563132!2sThe%20Reflection%20Westlake!5e0!3m2!1svi!2skr!4v1772779056535!5m2!1svi!2skr",
 
   // ── hero ─────────────────────────────────────────
   hero: {

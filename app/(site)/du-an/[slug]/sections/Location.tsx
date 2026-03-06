@@ -1,23 +1,28 @@
 // Server Component – Location / Connectivity (premium layout)
-import Image from "next/image"
-import type { Project } from "@/lib/projects/types"
+import Image from "next/image";
+import type { Project } from "@/lib/projects/types";
 
-const GOLD = "#C7A15A"
-const PANORAMA_FALLBACK = "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1920&q=80"
+const GOLD = "#C7A15A";
+const PANORAMA_FALLBACK =
+  "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1920&q=80";
 
 interface LocationProps {
-  project: Project
+  project: Project;
 }
 
-function getPanoramaSrc(project: Project): { src: string; isExternal: boolean } {
-  const path = project.location?.panoramaImage
-  if (!path) return { src: PANORAMA_FALLBACK, isExternal: true }
-  return { src: path, isExternal: path.startsWith("http") }
+function getPanoramaSrc(project: Project): {
+  src: string;
+  isExternal: boolean;
+} {
+  const path = project.location?.panoramaImage;
+  if (!path) return { src: PANORAMA_FALLBACK, isExternal: true };
+  return { src: path, isExternal: path.startsWith("http") };
 }
 
 export function Location({ project }: LocationProps) {
-  const loc = project.location
-  const { src: panoramaSrc, isExternal: isExternalImage } = getPanoramaSrc(project)
+  const loc = project.location;
+  const { src: panoramaSrc, isExternal: isExternalImage } =
+    getPanoramaSrc(project);
 
   return (
     <section id="location" className="bg-card py-24">
@@ -64,7 +69,9 @@ export function Location({ project }: LocationProps) {
                   className="w-1.5 h-1.5 rounded-full"
                   style={{ backgroundColor: GOLD }}
                 />
-                <p className="text-xs tracking-widest uppercase">Bản đồ đang cập nhật</p>
+                <p className="text-xs tracking-widest uppercase">
+                  Bản đồ đang cập nhật
+                </p>
               </div>
             )}
           </div>
@@ -85,7 +92,10 @@ export function Location({ project }: LocationProps) {
                     key={item.name}
                     className="flex items-baseline justify-between gap-2 text-sm"
                   >
-                    <span className="text-foreground/90 font-light truncate" title={item.name}>
+                    <span
+                      className="text-foreground/90 font-light truncate"
+                      title={item.name}
+                    >
                       {item.name}
                     </span>
                     <span
@@ -114,7 +124,9 @@ export function Location({ project }: LocationProps) {
                       key={item.label}
                       className="flex items-center justify-between text-sm gap-4"
                     >
-                      <span className="text-foreground/90 font-light">{item.label}</span>
+                      <span className="text-foreground/90 font-light">
+                        {item.label}
+                      </span>
                       <span
                         className="text-xs font-medium shrink-0"
                         style={{ color: GOLD }}
@@ -140,5 +152,5 @@ export function Location({ project }: LocationProps) {
         </div>
       </div>
     </section>
-  )
+  );
 }

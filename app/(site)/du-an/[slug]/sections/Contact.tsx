@@ -28,14 +28,65 @@ export function Contact({ project }: ContactProps) {
   const [phone, setPhone] = useState("");
   const [need, setNeed] = useState(formFields.needOptions[0]);
   const [formState, setFormState] = useState<FormState>("idle");
+  const [nameError, setNameError] = useState<string | null>(null);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !phone.trim()) return;
+
+    const cleanName = name.trim();
+    const cleanPhone = phone.trim().replace(/\s+/g, "");
+
+    // Clear previous errors
+    setNameError(null);
+    setPhoneError(null);
+
+    let hasError = false;
+    if (!cleanName) {
+      setNameError("Vui lòng nhập họ tên.");
+      hasError = true;
+    }
+    if (!cleanPhone) {
+      setPhoneError("Vui lòng nhập số điện thoại.");
+      hasError = true;
+    } else if (!/^(0|\+84)\d{9,10}$/.test(cleanPhone)) {
+      setPhoneError("Số điện thoại không hợp lệ.");
+      hasError = true;
+    }
+    if (hasError) return;
+
     setFormState("submitting");
-    // TODO: replace with real API call / form webhook
-    await new Promise((r) => setTimeout(r, 1200));
-    setFormState("success");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: cleanName,
+          phone: cleanPhone,
+          need,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Gửi thất bại");
+      }
+
+      setFormState("success");
+      setName("");
+      setPhone("");
+      setNameError(null);
+      setPhoneError(null);
+      setNeed(formFields.needOptions[0]);
+    } catch (error) {
+      console.error("Submit error:", error);
+      alert("Gửi thông tin thất bại. Vui lòng thử lại.");
+      setFormState("idle");
+    }
   }
 
   const inputBase =
@@ -90,11 +141,20 @@ export function Contact({ project }: ContactProps) {
                     </label>
                     <Input
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        if (nameError) setNameError(null);
+                      }}
                       placeholder="Nguyễn Văn A"
                       required
-                      className={inputBase}
+                      className={`${inputBase} ${nameError ? "border-red-500 focus-visible:border-red-500" : ""}`}
+                      aria-invalid={!!nameError}
                     />
+                    {nameError && (
+                      <p className="font-sans text-xs text-red-500 mt-0.5" role="alert">
+                        {nameError}
+                      </p>
+                    )}
                   </div>
 
                   <div className="flex flex-col gap-1.5">
@@ -104,11 +164,20 @@ export function Contact({ project }: ContactProps) {
                     <Input
                       type="tel"
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
+                      onChange={(e) => {
+                        setPhone(e.target.value);
+                        if (phoneError) setPhoneError(null);
+                      }}
                       placeholder="09xx xxx xxx"
                       required
-                      className={inputBase}
+                      className={`${inputBase} ${phoneError ? "border-red-500 focus-visible:border-red-500" : ""}`}
+                      aria-invalid={!!phoneError}
                     />
+                    {phoneError && (
+                      <p className="font-sans text-xs text-red-500 mt-0.5" role="alert">
+                        {phoneError}
+                      </p>
+                    )}
                   </div>
 
                   <div className="flex flex-col gap-1.5">
@@ -176,7 +245,7 @@ export function Contact({ project }: ContactProps) {
                     <p className="font-sans text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
                       Hotline
                     </p>
-                    <p className="font-heading text-lg text-foreground group-hover:text-[#C7A15A] transition-colors">
+                    <p className="font-sans text-sm text-foreground group-hover:text-[#C7A15A] transition-colors">
                       {project.hotline}
                     </p>
                   </div>
@@ -195,7 +264,7 @@ export function Contact({ project }: ContactProps) {
                     <p className="font-sans text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
                       Zalo
                     </p>
-                    <p className="font-heading text-lg text-foreground group-hover:text-[#C7A15A] transition-colors">
+                    <p className="font-sans text-sm text-foreground group-hover:text-[#C7A15A] transition-colors">
                       {project.zalo}
                     </p>
                   </div>

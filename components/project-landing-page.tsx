@@ -14,7 +14,7 @@ import Image from "next/image";
 import { Phone, FileText } from "lucide-react";
 import type { Project } from "@/lib/projects/types";
 import { buildProjectJsonLd } from "@/lib/projects/metadata";
-import { trackEvent } from "@/lib/analytics";
+import { TrackedLink } from "@/components/tracked-link";
 
 // ── Section imports (each section is Server or Client as needed) ──
 import { Hero } from "@/app/(site)/du-an/[slug]/sections/Hero";
@@ -64,13 +64,13 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
           </p>
           <p className="text-muted-foreground text-xs mt-1">
             Hotline:{" "}
-            <a
+            <TrackedLink
               href={`tel:${project.hotline}`}
-              onClick={() => trackEvent("click_hotline")}
+              eventName="click_hotline"
               className="text-primary hover:underline"
             >
               {project.hotline}
-            </a>
+            </TrackedLink>
           </p>
           <p className="text-muted-foreground/30 text-[10px] mt-5">
             © {new Date().getFullYear()} {project.brand}. Thông tin dự án mang
@@ -81,9 +81,9 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
 
       {/* ── Sticky CTA bar — mobile (bottom) ── */}
       <div className="fixed bottom-0 inset-x-0 z-50 md:hidden flex border-t border-border">
-        <a
+        <TrackedLink
           href={`tel:${project.hotline}`}
-          onClick={() => trackEvent("click_hotline")}
+          eventName="click_hotline"
           className="
             flex-1 flex items-center justify-center gap-2
             bg-primary text-black font-semibold text-sm tracking-widest uppercase
@@ -92,11 +92,11 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
         >
           <Phone className="size-4" />
           Gọi ngay
-        </a>
-        <a
+        </TrackedLink>
+        <TrackedLink
           href={`https://zalo.me/${project.zalo}`}
           target="_blank"
-          onClick={() => trackEvent("click_zalo")}
+          eventName="click_zalo"
           rel="noopener noreferrer"
           className="
             flex-1 flex items-center justify-center gap-2
@@ -113,15 +113,15 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
             className="shrink-0"
           />
           Zalo
-        </a>
+        </TrackedLink>
       </div>
 
       {/* ── Floating CTA pills — desktop (bottom-right) ── */}
       <div className="fixed right-5 bottom-8 z-50 hidden md:flex flex-col gap-3">
-        <a
+        <TrackedLink
           href={`tel:${project.hotline}`}
           title={`Gọi ngay: ${project.hotline}`}
-          onClick={() => trackEvent("click_hotline")}
+          eventName="click_hotline"
           className="
             flex items-center gap-2 bg-primary text-black text-xs font-semibold
             tracking-widest uppercase px-5 py-3 rounded-full
@@ -130,11 +130,11 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
         >
           <Phone className="size-4" />
           {project.hotline}
-        </a>
-        <a
+        </TrackedLink>
+        <TrackedLink
           href={`https://zalo.me/${project.zalo}`}
           target="_blank"
-          onClick={() => trackEvent("click_zalo")}
+          eventName="click_zalo"
           rel="noopener noreferrer"
           title="Chat Zalo"
           className="
@@ -151,7 +151,7 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
             className="shrink-0"
           />
           Zalo
-        </a>
+        </TrackedLink>
         <a
           href="#contact"
           title="Nhận bảng giá"

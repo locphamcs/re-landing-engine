@@ -22,31 +22,36 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Địa Ốc Kiến Hưng – Dự án BĐS cao cấp",
-    template: "%s | Địa Ốc Kiến Hưng",
-  },
+export const metadata = {
+  metadataBase: new URL("https://reflectionwestlake.online"),
+  title: "The Reflection Westlake – Căn hộ cao cấp Hồ Tây Hà Nội",
   description:
-    "Khám phá các dự án bất động sản cao cấp của Địa Ốc Kiến Hưng tại Hà Nội và TP.HCM.",
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://diaockienhung.vn",
-  ),
+    "Thông tin dự án, mặt bằng, tiện ích, bảng giá và tư vấn chi tiết.",
+  alternates: {
+    canonical: "https://reflectionwestlake.online",
+  },
   openGraph: {
-    type: "website",
-    locale: "vi_VN",
-    siteName: "Địa Ốc Kiến Hưng",
-    title: "Địa Ốc Kiến Hưng – Dự án BĐS cao cấp",
+    title: "The Reflection Westlake – Căn hộ cao cấp Hồ Tây Hà Nội",
     description:
-      "Khám phá các dự án bất động sản cao cấp của Địa Ốc Kiến Hưng tại Hà Nội và TP.HCM.",
+      "Thông tin dự án, mặt bằng, tiện ích, bảng giá và tư vấn chi tiết.",
+    url: "https://reflectionwestlake.online",
+    siteName: "Reflection Westlake",
+    type: "website",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Địa Ốc Kiến Hưng",
+        alt: "The Reflection Westlake",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Reflection Westlake – Căn hộ cao cấp Hồ Tây Hà Nội",
+    description:
+      "Thông tin dự án, mặt bằng, tiện ích, bảng giá và tư vấn chi tiết.",
+    images: ["/og-image.jpg"],
   },
 };
 

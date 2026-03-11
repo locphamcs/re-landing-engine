@@ -1,7 +1,7 @@
-import type { MetadataRoute } from "next"
+import type { MetadataRoute } from "next";
 
-// Update BASE_URL when deploying to production
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://diaockienhung.vn"
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://reflectionwestlake.online";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -9,11 +9,10 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/"],
+        disallow: ["/api/"],
       },
     ],
-    sitemap: `${BASE_URL}/sitemap.xml`,
-    host: BASE_URL,
-  }
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
+  };
 }
-

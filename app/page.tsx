@@ -1,29 +1,66 @@
-// ─────────────────────────────────────────────────────────────
-//  Home Page  /
-//  Renders the default featured project landing page.
-//  To change the featured project, update DEFAULT_SLUG below.
-// ─────────────────────────────────────────────────────────────
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { getProjectBySlug } from "@/lib/projects";
+import { ProjectLandingPage } from "@/components/project-landing-page";
 
-import { notFound } from "next/navigation"
-import type { Metadata } from "next"
-import { getProjectBySlug } from "@/lib/projects"
-import { buildProjectMetadata } from "@/lib/projects/metadata"
-import { ProjectLandingPage } from "@/components/project-landing-page"
+const DEFAULT_SLUG = "the-reflection-westlake";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://reflectionwestlake.online";
 
-/** Change this to whichever project should appear on the home page */
-const DEFAULT_SLUG = "the-reflection-westlake"
+export function generateMetadata(): Metadata {
+  const project = getProjectBySlug(DEFAULT_SLUG);
 
-export async function generateMetadata(): Promise<Metadata> {
-  const project = getProjectBySlug(DEFAULT_SLUG)
-  if (!project) return { title: "Trang chủ – Địa Ốc Kiến Hưng" }
-  return buildProjectMetadata(project)
+  if (!project) {
+    return {
+      title: "Trang chủ – Reflection Westlake",
+      alternates: {
+        canonical: SITE_URL,
+      },
+    };
+  }
+
+  return {
+    title: project.seo.title,
+    description: project.seo.description,
+    keywords: project.seo.keywords,
+    alternates: {
+      canonical: SITE_URL,
+    },
+    openGraph: {
+      title: project.seo.title,
+      description: project.seo.description,
+      url: SITE_URL,
+      siteName: project.brand,
+      locale: "vi_VN",
+      type: "website",
+      images: project.seo.ogImage
+        ? [
+            {
+              url: project.seo.ogImage,
+              width: 1200,
+              height: 630,
+              alt: project.name,
+            },
+          ]
+        : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.seo.title,
+      description: project.seo.description,
+      images: project.seo.ogImage ? [project.seo.ogImage] : [],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
 }
 
 export default function HomePage() {
-  const project = getProjectBySlug(DEFAULT_SLUG)
+  const project = getProjectBySlug(DEFAULT_SLUG);
 
-  // Fallback: show 404 if the default slug is ever removed from the registry
-  if (!project) notFound()
+  if (!project) notFound();
 
-  return <ProjectLandingPage project={project} />
+  return <ProjectLandingPage project={project} />;
 }

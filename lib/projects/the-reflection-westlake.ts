@@ -458,9 +458,9 @@ export const theReflectionWestlake: Project = {
       "Địa Ốc Kiến Hưng",
       "căn hộ Hồ Tây",
       "mua căn hộ Hà Nội",
-      "dự án BĐS Hà Nội 2025",
+      "dự án BĐS Hà Nội 2026",
     ],
-    ogImage: "/projects/the-reflection-westlake/og-image.jpg",
+    ogImage: "/og-image.jpg",
   },
 
   // ── location / connectivity ────────────────────────

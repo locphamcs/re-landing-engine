@@ -1,7 +1,10 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
+
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://reflectionwestlake.online";
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-XBNW3CTXPN";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,18 +26,18 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://reflectionwestlake.online"),
+  metadataBase: new URL(SITE_URL),
   title: "The Reflection Westlake – Căn hộ cao cấp Hồ Tây Hà Nội",
   description:
     "Thông tin dự án, mặt bằng, tiện ích, bảng giá và tư vấn chi tiết.",
   alternates: {
-    canonical: "https://reflectionwestlake.online",
+    canonical: SITE_URL,
   },
   openGraph: {
     title: "The Reflection Westlake – Căn hộ cao cấp Hồ Tây Hà Nội",
     description:
       "Thông tin dự án, mặt bằng, tiện ích, bảng giá và tư vấn chi tiết.",
-    url: "https://reflectionwestlake.online",
+    url: SITE_URL,
     siteName: "Reflection Westlake",
     type: "website",
     images: [
@@ -69,7 +72,7 @@ export default function RootLayout({
         {children}
 
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-XBNW3CTXPN"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"
         />
 
@@ -79,7 +82,7 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-XBNW3CTXPN');
+            gtag('config', '${GA_ID}');
             `}
         </Script>
       </body>

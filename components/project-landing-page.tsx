@@ -51,7 +51,7 @@ export function ProjectLandingPage({ project }: ProjectLandingPageProps) {
         {/* <MasterPlan project={project} /> */}
         <Gallery project={project} />
         <SalesPolicy project={project} />
-        <Pricing project={project} />
+        {/* <Pricing project={project} /> */}
         <Contact project={project} />
 
         {/* ── Footer strip ── */}
